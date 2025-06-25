@@ -1,18 +1,24 @@
-v=[0,10,6,13,7,8]
-w=[0,6,3,9,4,2]
+v = [10, 6, 13, 7, 8]      # 物品價值
+w = [6, 3, 9, 4, 2]        # 物品重量
+capacity = 10              # 背包總容量
 
-dp = [[0]*11 for _ in range(6)]
+# 計算每個物品的單位價值
+items = []
+for i in range(len(v)):
+    items.append((v[i] / w[i], v[i], w[i]))  # (單位價值, 價值, 重量)
 
-for a in dp:
-    print(a)
+# 按單位價值從大到小排序
+items.sort(reverse=True)
 
-for i in range(0,6):
-    for W in range(0,11):
-        if w[i] > W:
-            dp[i][W] = dp[i-1][W]
-        else:
-            dp[i][W] = max(dp[i-1][W-w[i]]+v[i], dp[i-1][W])
-#TODO： Eat something
-print()       
-for a in dp:
-    print(a)
+total_value = 0
+remain = capacity
+
+for value_per_weight, value, weight in items:
+    if remain >= weight:
+        total_value += value
+        remain -= weight
+    else:
+        total_value += value_per_weight * remain
+        break
+
+print(f"最大可取得價值: {total_value}")
