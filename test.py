@@ -2,7 +2,7 @@ v=[0,10,6,13,7,8]
 w=[0,6,3,9,4,2]
 
 dp = [[0]*11 for _ in range(6)]
-a = 5
+
 for a in dp:
     print(a)
 
